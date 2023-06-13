@@ -23,7 +23,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }} -f docker/proxy-server/Dockerfile .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG} -f docker/proxy-server/Dockerfile .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}
           
           
