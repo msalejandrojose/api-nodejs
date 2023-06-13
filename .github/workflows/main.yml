@@ -27,24 +27,22 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG}
 
   cleanup:
-    needs: login_push_image
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: List Docker images
-        run: |
-          docker images --format "{{.ID}}" > image_ids.txt
-          cat image_ids.txt
-
-      - name: Remove old Docker images
-        run: |
-          IMAGES=$(tail -n +6 image_ids.txt)
-          echo "$IMAGES" | while read -r IMAGE_ID; do
-            docker rmi "$IMAGE_ID" --force
-          done
-
-      - name: Cleanup
-        run: rm -f image_ids.txt
+        needs: login_push_image
+        runs-on: ubuntu-latest
+          
+        steps:
+          - name: Configure Docker
+            run: |
+                  echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          
+          - name: List Docker images
+            run: docker images
+          
+          - name: Remove old Docker images
+            run: |
+                  IMAGES=$(docker images ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }} -q)
+                  echo "$IMAGES" | while read -r IMAGE_ID; do
+                    docker image rm ghcr.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:"$IMAGE_ID" --force
+                  done
+          
+          
