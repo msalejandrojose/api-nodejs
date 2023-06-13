@@ -21,7 +21,29 @@ jobs:
 
       - name: Build and push Docker image
         env:
-            IMAGE_TAG: ${{ github.event.release.tag_name }}
+          IMAGE_TAG: ${{ github.event.release.tag_name }}
         run: |
-            docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG} -f docker/proxy-server/Dockerfile .
-            docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG} -f docker/proxy-server/Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG}
+
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: List Docker images
+        run: |
+          docker images --format "{{.ID}}" > image_ids.txt
+          cat image_ids.txt
+
+      - name: Remove old Docker images
+        run: |
+          IMAGES=$(tail -n +6 image_ids.txt)
+          echo "$IMAGES" | while read -r IMAGE_ID; do
+            docker rmi "$IMAGE_ID" --force
+          done
+
+      - name: Cleanup
+        run: rm -f image_ids.txt
