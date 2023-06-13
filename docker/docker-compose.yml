@@ -1,0 +1,35 @@
+version: '3'
+services:
+  # Web server
+  proxyserver:
+    build:
+      context: ../
+      dockerfile: ./docker/proxy-server/Dockerfile
+      args:
+        - mode
+        - project_id
+    container_name: proxyserver
+    restart: unless-stopped
+    tty: true
+    environment:
+      - PROJECT_ID=${PROJECT_ID}
+      - ENV=${ENV}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../.env:/.env
+      - ..:/usr/share/nginx/project
+    networks:
+      - app-network
+
+# Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  mysqldata:
+    driver: local
+
