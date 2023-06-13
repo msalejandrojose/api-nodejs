@@ -26,4 +26,5 @@ WORKDIR /usr/share/nginx/project/api
 RUN npm i
 
 # Comando para iniciar el servidor NGINX y NODE JS
+
 CMD ["sh", "-c", "nginx -g 'daemon off;' & node index.js"]
