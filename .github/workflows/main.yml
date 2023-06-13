@@ -27,6 +27,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG}
 
   cleanup:
+    needs: login_push_image
     runs-on: ubuntu-latest
 
     steps:
