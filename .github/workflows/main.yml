@@ -20,7 +20,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
+        env:
+            IMAGE_TAG: ${{ github.event.release.tag_name }}
         run: |
-            IMAGE_TAG=$(echo "${{ github.ref }}" | sed -e 's/\//-/g')
             docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG} -f docker/proxy-server/Dockerfile .
             docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:${IMAGE_TAG}
