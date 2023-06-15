@@ -3,8 +3,5 @@ version: 1
 services:
   - name: api-nodejs
     image: msalejandrojose/docker-api:latest
-    ports:
-      - 80:80
-      - 443:443
     env:
       - MY_SECRET=valor_secreto
