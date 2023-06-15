@@ -23,6 +23,7 @@ jobs:
           ls
           cd ../../
           ls
+          cd /home/runner/work/api-nodejs/api-nodejs/docker
       - name: Deploy
         run: |
           pwd
