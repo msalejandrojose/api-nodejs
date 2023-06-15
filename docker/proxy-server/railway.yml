@@ -1,7 +1,5 @@
 version: 1
 
 services:
-  - name: api-nodejs
+  - name: web
     image: msalejandrojose/docker-api:latest
-    env:
-      - MY_SECRET=valor_secreto
