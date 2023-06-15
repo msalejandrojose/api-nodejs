@@ -36,7 +36,7 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Deploy
-        run: railway up -f docker/proxy-server/railway.yml
+        run: railway up -- -f docker/proxy-server/railway.yml
         env:
           RAILWAY_TOKEN: a354b866-eac9-4d6b-81d9-e86f9f61b20a
 
