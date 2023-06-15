@@ -36,9 +36,9 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Authenticate with Railway
-        run: railway login --token ${{ secrets.RAILWAY_TOKEN }}
+        run: railway login --token a354b866-eac9-4d6b-81d9-e86f9f61b20a
 
       - name: Deploy to Railway
         run: railway up -f docker/proxy-server/railway.yml
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: a354b866-eac9-4d6b-81d9-e86f9f61b20a
