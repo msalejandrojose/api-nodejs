@@ -1,0 +1,5 @@
+[deploy]
+startCommand = "docker run -d -p 80:80 msalejandrojose/docker-api:latest"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "never"
