@@ -23,7 +23,11 @@ jobs:
           cd ../
           pwd
       - name: List directory contents
-        run: pwd
+        run: 
+          pwd
+          cd docker/
+          pwd
+          cd proxy-server
 
       - name: Deploy
         run: |
