@@ -19,7 +19,9 @@ jobs:
       - name: List directory contents
         run: pwd
       - name: List directory contents
-        run: cd ../
+        run: |
+          cd ../
+          pwd
       - name: List directory contents
         run: pwd
 
