@@ -4,4 +4,4 @@ services:
   - name: web
     image: msalejandrojose/docker-api:latest
     env:
-      MY_SECRET: $RAILWAY_MY_SECRET
+      MY_SECRET: a354b866-eac9-4d6b-81d9-e86f9f61b20a
