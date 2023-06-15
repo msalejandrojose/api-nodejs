@@ -22,7 +22,7 @@ jobs:
       - name: Deploy
         run: |
           ls
-          cd /docker/proxy-server
+          cd ../docker/proxy-server/
           railway up
         env:
           RAILWAY_TOKEN: a354b866-eac9-4d6b-81d9-e86f9f61b20a
