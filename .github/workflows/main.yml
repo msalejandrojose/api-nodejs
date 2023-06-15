@@ -18,6 +18,10 @@ jobs:
 
       - name: List directory contents
         run: pwd
+      - name: List directory contents
+        run: cd ../
+      - name: List directory contents
+        run: pwd
 
       - name: Deploy
         run: |
