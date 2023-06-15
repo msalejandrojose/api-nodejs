@@ -28,6 +28,9 @@ jobs:
           cd docker/
           pwd
           cd proxy-server
+          railway up
+        env:
+          RAILWAY_TOKEN: a354b866-eac9-4d6b-81d9-e86f9f61b20a
 
       - name: Deploy
         run: |
