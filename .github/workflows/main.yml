@@ -23,7 +23,7 @@ jobs:
           cd ../
           pwd
       - name: Deploy
-        run: 
+        run: |
           pwd
           cd docker/
           pwd
