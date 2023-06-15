@@ -18,9 +18,6 @@ jobs:
 
       - name: List directory contents
         run: |
-          ls
-          cd ../../
-          ls
           ls -R
       - name: Deploy
         run: |
