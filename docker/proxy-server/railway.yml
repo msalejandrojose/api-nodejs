@@ -1,0 +1,9 @@
+version: 1
+
+services:
+  - name: web
+    image: msalejandrojose/docker-api:latest
+    ports:
+      - 80:80
+    env:
+      - MY_SECRET=valor_secreto
