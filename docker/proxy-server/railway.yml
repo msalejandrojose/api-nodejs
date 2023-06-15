@@ -1,7 +1,7 @@
 version: 1
 
 services:
-  - name: web
+  - name: api-nodejs
     image: msalejandrojose/docker-api:latest
     ports:
       - 80:80
