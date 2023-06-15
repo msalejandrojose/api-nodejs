@@ -1,12 +1,12 @@
 name: Deploy to Railway
 
 on:
-    push:
-        branches:
-        - main
-    release:
-        types:
-        - created
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - created
 
 jobs:
   login_push_image:
@@ -26,3 +26,18 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/proxy-server/Dockerfile .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest
+
+  deploy_to_railway:
+    needs: [login_push_image]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Railway CLI
+        run: |
+          curl -sSL https://railway.app/cli | sudo sh
+
+      - name: Authenticate with Railway
+        run: railway login --token ${{ secrets.RAILWAY_TOKEN }}
+
+      - name: Deploy to Railway
+        run: railway up -f docker/proxy-server/railway.yml

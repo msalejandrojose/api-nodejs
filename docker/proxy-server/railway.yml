@@ -1,0 +1,7 @@
+version: 1
+
+services:
+  - name: web
+    image: msalejandrojose/docker-api:latest
+    env:
+      MY_SECRET: $RAILWAY_MY_SECRET
