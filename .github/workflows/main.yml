@@ -23,4 +23,3 @@ jobs:
         run: railway up
         env:
           RAILWAY_TOKEN: 239947a4-d42c-4263-aef3-51c4704945cf
-

@@ -8,5 +8,5 @@
 #npm i
 #npm run build
 
-cd /usr/share/nginx/project/api
-npm i
+#cd /usr/share/nginx/project/api
+#npm i

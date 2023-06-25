@@ -14,10 +14,10 @@ COPY ./docker/proxy-server/nginx/nginx.conf /etc/nginx/
 COPY ./docker/proxy-server/nginx/location-api.conf /etc/nginx/location-api.conf
 COPY ./docker/proxy-server/nginx/conf.d/server.conf /etc/nginx/conf.d/env.conf
 COPY ./docker/proxy-server/scripts ./scripts
-COPY ./docker/proxy-server/certs ./certs
+#COPY ./docker/proxy-server/certs ./certs
 RUN chmod +x /scripts -R
-RUN dos2unix /scripts/*
-RUN /scripts/certs.sh "${mode}" "${project_id}"
+#RUN dos2unix /scripts/*
+#RUN /scripts/certs.sh "${mode}" "${project_id}"
 
 # Exponer el puerto 80 y 443
 EXPOSE 80 443
