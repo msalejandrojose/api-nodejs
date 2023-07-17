@@ -36,8 +36,8 @@ jobs:
       
       - name: Update ECS service with new task
         run: |
-            PREVIOUS_TASK=$(aws ecs list-tasks --service-name app --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
-            aws ecs update-service --cluster ecs-cluster4 --service app --force-new-deployment
+            PREVIOUS_TASK=$(aws ecs list-tasks --service-name app4 --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
+            aws ecs update-service --cluster ecs-cluster4 --service app4 --force-new-deployment
           
       - name: Stop previous task
         run: |
