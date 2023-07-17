@@ -36,13 +36,11 @@ jobs:
       
       - name: Update ECS service with new task
         run: |
-            echo "::set-env name=SERVICE_NAME::app"
-            echo "::set-env name=CLUSTER_NAME::ecs-cluster4"
-            PREVIOUS_TASK=$(aws ecs list-tasks --service-name $SERVICE_NAME --cluster $CLUSTER_NAME --desired-status RUNNING --output text | awk '{print $NF}')
-            aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+            PREVIOUS_TASK=$(aws ecs list-tasks --service-name app --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
+            aws ecs update-service --cluster ecs-cluster4 --service app --force-new-deployment
           
       - name: Stop previous task
         run: |
           if [ -n "$PREVIOUS_TASK" ]; then
-            aws ecs stop-task --task $PREVIOUS_TASK --cluster $CLUSTER_NAME
+            aws ecs stop-task --task $PREVIOUS_TASK --cluster ecs-cluster4
           fi
