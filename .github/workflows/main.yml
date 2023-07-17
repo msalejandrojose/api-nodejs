@@ -33,7 +33,16 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: ${{ secrets.AWS_REGION }}
-        
-      - name: Update ECS service
+      
+      - name: Update ECS service with new task
         run: |
-          aws ecs update-service --cluster ecs-cluster4 --service application --force-new-deployment
+            echo "::set-env name=SERVICE_NAME::app"
+            echo "::set-env name=CLUSTER_NAME::ecs-cluster4"
+            PREVIOUS_TASK=$(aws ecs list-tasks --service-name $SERVICE_NAME --cluster $CLUSTER_NAME --desired-status RUNNING --output text | awk '{print $NF}')
+            aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+          
+      - name: Stop previous task
+        run: |
+          if [ -n "$PREVIOUS_TASK" ]; then
+            aws ecs stop-task --task $PREVIOUS_TASK --cluster $CLUSTER_NAME
+          fi
