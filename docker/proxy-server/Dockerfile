@@ -8,7 +8,7 @@ ARG env
 RUN apk add --no-cache openssl nginx nodejs npm
 
 # Copiar los archivos de configuración
-COPY ./api /usr/share/nginx/project/api
+COPY ./ /usr/share/nginx/project
 COPY ./docker/proxy-server/nginx/nginx.conf /etc/nginx/
 #COPY ./nginx/location-front.conf /etc/nginx/location-front.conf
 #COPY ./nginx/location-bo.conf /etc/nginx/location-bo.conf
