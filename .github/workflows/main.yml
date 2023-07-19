@@ -26,6 +26,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install vlt -y
+          echo "Installation completed"
       
       - name: echo
         env:
