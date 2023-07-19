@@ -23,15 +23,18 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: echo
+        env:
+          HCP_CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
+          HCP_CLIENT_SECRET: ${{ secrets.HCP_CLIENT_SECRET }}
         run: |
           ls
           pwd
-          ls docker/proxy-server/scripts/config.sh
+          ls docker/proxy-server/scripts/config.sh "$HCP_CLIENT_ID" "$HCP_CLIENT_SECRET"
       
-#      - name: Build and push Docker image
-#        run: |
-#          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/proxy-server/Dockerfile .
-#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/proxy-server/Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest
 
 #      - name: Configure AWS credentials
 #        uses: aws-actions/configure-aws-credentials@v1
