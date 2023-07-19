@@ -8,7 +8,7 @@ echo "HOLAAA"
 #
 vlt login
 vlt config --app-name test-application
-#
+
 # Archivo de salida
 archivo_salida="secret.txt"
 
