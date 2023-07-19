@@ -31,5 +31,5 @@ echo "$variables" | while IFS= read -r linea; do
   valor=$(vlt secrets get -plaintext "$nombre")
 
   # Guardar la variable y su valor en el archivo de salida
-  echo "$nombre $valor" >> "$archivo_salida" 2>/dev/null
+  echo "${nombre}=${valor}" >> "$archivo_salida" 2>/dev/null
 done
