@@ -10,7 +10,7 @@ vlt login
 vlt config test-application
 #
 # Archivo de salida
-archivo_salida="/../secret.txt"
+archivo_salida="secret.txt"
 
 # Obtener la lista de variables omitiendo la primera línea
 variables=$(vlt secrets | tail -n +2)
