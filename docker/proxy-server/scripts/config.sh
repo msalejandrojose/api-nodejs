@@ -8,7 +8,7 @@ echo "HOLAAA"
 #
 vlt login
 vlt secrets --app-name="test-application"
-vlt config ./vlt-config.yaml
+#vlt config ./vlt-config.yaml
 #vlt config init test-application
 
 # Archivo de salida
