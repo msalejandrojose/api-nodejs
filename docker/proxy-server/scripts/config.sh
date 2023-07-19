@@ -10,7 +10,7 @@ export VLT_APPLICATION_NAME=test-application
 echo "HOLAAA"
 #
 vlt login
-vlt config init
+vlt config
 vlt secrets
 
 #vlt config ./vlt-config.yaml
