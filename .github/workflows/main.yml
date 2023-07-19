@@ -21,6 +21,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Install vlt
+        run: |
+          sudo apt update
+          sudo apt install vlt -y
+    
       
       - name: echo
         env:
