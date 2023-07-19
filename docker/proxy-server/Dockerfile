@@ -25,7 +25,9 @@ EXPOSE 80 443
 
 WORKDIR /usr/share/nginx/project/api
 RUN npm i
-WORKDIR /usr/share/nginx/project
+WORKDIR /
+
+ENV MODE=${mode}
 
 # Comando para iniciar el servidor NGINX y NODE JS
-CMD ["sh", "-c", "export $(cat secret.env | xargs) && nginx -g 'daemon off;' && node index.js"]
+CMD ["sh", "-c", "scripts/entrypoint.sh $MODE && nginx -g 'daemon off;' && node index.js"]
