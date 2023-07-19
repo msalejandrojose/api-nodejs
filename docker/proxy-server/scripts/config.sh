@@ -7,7 +7,7 @@ export HCP_CLIENT_SECRET=$2
 echo "HOLAAA"
 #
 vlt login
-vlt config
+vlt config ./vlt-config.yaml
 #vlt config init test-application
 
 # Archivo de salida
