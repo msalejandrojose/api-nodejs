@@ -30,4 +30,4 @@ WORKDIR /
 ENV MODE=${mode}
 
 # Comando para iniciar el servidor NGINX y NODE JS
-CMD ["sh", "-c", "/scripts/entrypoint.sh $MODE && nginx -g 'daemon off;' && node index.js"]
+ENTRYPOINT ["sh", "-c", "scripts/entrypoint.sh $MODE && nginx -g 'daemon off;' && node index.js"]
