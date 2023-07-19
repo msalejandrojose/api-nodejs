@@ -17,6 +17,7 @@ COPY ./docker/proxy-server/nginx/conf.d/server.conf /etc/nginx/conf.d/env.conf
 COPY ./docker/proxy-server/scripts ./scripts
 #COPY ./docker/proxy-server/certs ./certs
 RUN chmod +x /scripts -R
+RUN chmod 777 /scripts/entrypoint.sh
 RUN dos2unix /scripts/*
 #RUN /scripts/certs.sh "${mode}" "${project_id}"
 
