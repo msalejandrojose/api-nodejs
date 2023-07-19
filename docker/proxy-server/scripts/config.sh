@@ -4,7 +4,7 @@ export HCP_CLIENT_ID=$1
 #"V2zh4kn7372DGDyqqKhK2DqEpyad8Ai6"
 export HCP_CLIENT_SECRET=$2
 #"Xtg-brkkEErIOJMsQbx__ZTQVHsXGKUzW4FH1TbD_V1XupzXPRSfV5wR_P2iuwGI"
-#
+echo "HOLAAA"
 #
 vlt login
 vlt config test-application
