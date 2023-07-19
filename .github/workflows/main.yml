@@ -29,7 +29,7 @@ jobs:
         run: |
           ls
           pwd
-          ls docker/proxy-server/scripts/config.sh "$HCP_CLIENT_ID" "$HCP_CLIENT_SECRET"
+          ./docker/proxy-server/scripts/config.sh "$HCP_CLIENT_ID" "$HCP_CLIENT_SECRET"
       
       - name: Build and push Docker image
         run: |
