@@ -8,6 +8,7 @@ export APP_NAME=test-application
 echo "HOLAAA"
 #
 vlt login
+vlt config init
 vlt secrets get --app-name="test-application" ENV
 vlt secrets
 
