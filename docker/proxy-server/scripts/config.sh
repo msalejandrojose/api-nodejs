@@ -23,7 +23,7 @@ archivo_salida="secret.txt"
 variables=$(vlt secrets | tail -n +2)
 
 # Iterar sobre cada variable
-while IFS= read -r linea; do
+echo "$variables" | while IFS= read -r linea; do
   # Obtener el nombre de la variable
   nombre=$(echo "$linea" | awk '{print $1}')
 
@@ -31,5 +31,5 @@ while IFS= read -r linea; do
   valor=$(vlt secrets get -plaintext "$nombre")
 
   # Guardar la variable y su valor en el archivo de salida
-  echo "$nombre $valor" >> "$archivo_salida"
-done <<< "$variables"
+  echo "$nombre $valor" >> "$archivo_salida" 2>/dev/null
+done
