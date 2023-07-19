@@ -7,7 +7,7 @@ export HCP_CLIENT_SECRET=$2
 echo "HOLAAA"
 #
 vlt login
-vlt config test-application
+vlt config
 #
 # Archivo de salida
 archivo_salida="secret.txt"
@@ -18,7 +18,7 @@ variables=$(vlt secrets | tail -n +2)
 # Iterar sobre cada variable
 while read -r linea; do
   # Obtener el nombre de la variable
-  nombre=$(echo "$linea" | awk '{print $1}')
+  nombre=$(echo "$linea=" | awk '{print $1}')
 
   # Obtener el valor del secreto
   valor=$(vlt secrets get -plaintext "$nombre")
