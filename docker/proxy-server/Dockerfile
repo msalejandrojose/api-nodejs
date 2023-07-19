@@ -23,8 +23,9 @@ RUN dos2unix /scripts/*
 # Exponer el puerto 80 y 443
 EXPOSE 80 443
 
-WORKDIR /usr/share/nginx/project
+WORKDIR /usr/share/nginx/project/api
 RUN npm i
+WORKDIR /usr/share/nginx/project
 
 # Comando para iniciar el servidor NGINX y NODE JS
-CMD ["sh", "-c", "export $(cat secret.env | xargs) && nginx -g 'daemon off;' && node index.js"]
+CMD ["sh", "-c", "./docker/proxy-server/scripts/entrypoint.sh && nginx -g 'daemon off;' && node index.js"]
