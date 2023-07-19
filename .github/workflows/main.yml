@@ -38,6 +38,8 @@ jobs:
           ls
           pwd
           ./docker/proxy-server/scripts/config.sh "$HCP_CLIENT_ID" "$HCP_CLIENT_SECRET"
+          mv secret.txt /secret.env # Mueve el archivo a la ubicación deseada
+
       
       - name: Build and push Docker image
         run: |
