@@ -3,7 +3,7 @@
 mode=$1
 
 if [ "$mode" != "local" ]; then
-    export $(cat secret.env | xargs)
+    export $(cat usr/share/nginx/project/secret.env | xargs)
 fi
 
 
