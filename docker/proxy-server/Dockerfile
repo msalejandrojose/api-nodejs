@@ -17,7 +17,6 @@ COPY ./docker/proxy-server/nginx/conf.d/server.conf /etc/nginx/conf.d/env.conf
 COPY ./docker/proxy-server/scripts ./scripts
 #COPY ./docker/proxy-server/certs ./certs
 RUN chmod +x /scripts -R
-RUN chmod 777 /scripts/entrypoint.sh
 RUN dos2unix /scripts/*
 #RUN /scripts/certs.sh "${mode}" "${project_id}"
 
@@ -29,4 +28,4 @@ RUN npm i
 WORKDIR /usr/share/nginx/project
 
 # Comando para iniciar el servidor NGINX y NODE JS
-CMD ["sh", "-c", "docker/proxy-server/scripts/entrypoint.sh && nginx -g 'daemon off;' && node index.js"]
+CMD ["sh", "-c", "export $(cat secret.env | xargs) && nginx -g 'daemon off;' && node index.js"]
