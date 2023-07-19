@@ -26,6 +26,7 @@ jobs:
         run: |
           ls
           pwd
+          ls docker/proxy-server/scripts/config.sh
       
 #      - name: Build and push Docker image
 #        run: |
