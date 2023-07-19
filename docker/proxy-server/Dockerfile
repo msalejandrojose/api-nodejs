@@ -29,4 +29,4 @@ RUN npm i
 WORKDIR /usr/share/nginx/project
 
 # Comando para iniciar el servidor NGINX y NODE JS
-CMD ["sh", "-c", "./docker/proxy-server/scripts/entrypoint.sh && nginx -g 'daemon off;' && node index.js"]
+CMD ["sh", "-c", "docker/proxy-server/scripts/entrypoint.sh && nginx -g 'daemon off;' && node index.js"]
