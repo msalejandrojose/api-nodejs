@@ -7,8 +7,8 @@ export HCP_CLIENT_SECRET=$2
 echo "HOLAAA"
 #
 vlt login
-vlt secrets 
-vlt config init test-application
+vlt config -a test-application
+#vlt config init test-application
 
 # Archivo de salida
 archivo_salida="secret.txt"
