@@ -22,25 +22,30 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Build and push Docker image
+      - name: echo
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/proxy-server/Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: ${{ secrets.AWS_REGION }}
+          ls
+          pwd
       
-      - name: Update ECS service with new task
-        run: |
-            PREVIOUS_TASK=$(aws ecs list-tasks --service-name app4 --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
-            aws ecs update-service --cluster ecs-cluster4 --service app4 --force-new-deployment
-          
-      - name: Stop previous task
-        run: |
-          if [ -n "$PREVIOUS_TASK" ]; then
-            aws ecs stop-task --task $PREVIOUS_TASK --cluster ecs-cluster4
-          fi
+#      - name: Build and push Docker image
+#        run: |
+#          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/proxy-server/Dockerfile .
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest
+
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#            aws-region: ${{ secrets.AWS_REGION }}
+#      
+#      - name: Update ECS service with new task
+#        run: |
+#            PREVIOUS_TASK=$(aws ecs list-tasks --service-name app4 --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
+#            aws ecs update-service --cluster ecs-cluster4 --service app4 --force-new-deployment
+#          
+#      - name: Stop previous task
+#        run: |
+#          if [ -n "$PREVIOUS_TASK" ]; then
+#            aws ecs stop-task --task $PREVIOUS_TASK --cluster ecs-cluster4
+#          fi

@@ -2,6 +2,7 @@ FROM alpine:latest
 
 ARG mode
 ARG project_id
+ARG env
 
 # Instalar paquetes y dependencias de Nginx y Node.js
 RUN apk add --no-cache openssl nginx nodejs npm
@@ -16,7 +17,7 @@ COPY ./docker/proxy-server/nginx/conf.d/server.conf /etc/nginx/conf.d/env.conf
 COPY ./docker/proxy-server/scripts ./scripts
 #COPY ./docker/proxy-server/certs ./certs
 RUN chmod +x /scripts -R
-#RUN dos2unix /scripts/*
+RUN dos2unix /scripts/*
 #RUN /scripts/certs.sh "${mode}" "${project_id}"
 
 # Exponer el puerto 80 y 443
