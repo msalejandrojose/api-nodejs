@@ -8,6 +8,7 @@ echo "HOLAAA"
 #
 vlt login
 vlt config
+
 #
 # Archivo de salida
 archivo_salida="secret.txt"
