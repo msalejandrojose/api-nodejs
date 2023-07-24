@@ -26,5 +26,5 @@ RUN npm run build
 WORKDIR /
 
 # Comando para iniciar el servidor NGINX y NODE JS
-#ENTRYPOINT ["sh", "-c", "scripts/entrypoint.sh $env && node usr/share/nginx/project/api/index.js"]
-CMD ["sh", "-c", "scripts/entrypoint.sh & scripts/run-nestjs.sh ${env}"]
+#ENTRYPOINT ["sh", "-c", "scripts/run-nestjs.sh "${env}" && scripts/entrypoint.sh"]
+CMD ["sh", "-c", "scripts/run-nestjs.sh $env & scripts/entrypoint.sh"]
