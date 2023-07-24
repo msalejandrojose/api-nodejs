@@ -9,7 +9,7 @@ on:
       - created
 
 jobs:
-  login_push_image:
+  build-and-push-docker-image:
     runs-on: ubuntu-latest
    
     steps:
@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Install vlt
+      - name: Install VLT
         run: |
           curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
           echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
@@ -30,35 +30,39 @@ jobs:
           sudo apt install vlt -y
           echo "Installation completed"
       
-      - name: echo
+      - name: Generate file secrets
         env:
           HCP_CLIENT_ID: ${{ secrets.HCP_CLIENT_ID }}
           HCP_CLIENT_SECRET: ${{ secrets.HCP_CLIENT_SECRET }}
         run: |
           ls
           pwd
-          ./docker/proxy-server/scripts/config.sh "$HCP_CLIENT_ID" "$HCP_CLIENT_SECRET"
-          mv secret.txt ./secret.env # Mueve el archivo a la ubicación deseada
+          ./docker/webserver/scripts/config.sh "$HCP_CLIENT_ID" "$HCP_CLIENT_SECRET"
+          mv secret.txt ./.env # Mueve el archivo a la ubicación deseada
 
       
       - name: Build and push Docker image
         run: |
-          docker build --build-arg mode=pre --build-arg env=pre -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/proxy-server/Dockerfile .
+          docker build --build-arg env=pre -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest -f docker/webserver/Dockerfile .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DOCKER_API }}:latest
 
+#  deploy-image-docker-into-aws:
+#    runs-on: ubuntu-latest
+#    needs: build-and-push-docker-image
+#    steps:
 #      - name: Configure AWS credentials
 #        uses: aws-actions/configure-aws-credentials@v1
 #        with:
-#            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#            aws-region: ${{ secrets.AWS_REGION }}
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: ${{ secrets.AWS_REGION }}
 #      
-#      - name: Update ECS service with new task
+#      - name: Update ECS Service (Creating new Task)
 #        run: |
-#            PREVIOUS_TASK=$(aws ecs list-tasks --service-name app4 --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
-#            aws ecs update-service --cluster ecs-cluster4 --service app4 --force-new-deployment
+#          PREVIOUS_TASK=$(aws ecs list-tasks --service-name app4 --cluster ecs-cluster4 --desired-status RUNNING --output text | awk '{print $NF}')
+#          aws ecs update-service --cluster ecs-cluster4 --service app4 --force-new-deployment
 #          
-#      - name: Stop previous task
+#      - name: Update ECS Service (Stop previous task)
 #        run: |
 #          if [ -n "$PREVIOUS_TASK" ]; then
 #            aws ecs stop-task --task $PREVIOUS_TASK --cluster ecs-cluster4

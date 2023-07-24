@@ -1,5 +1,0 @@
-version: 1
-
-services:
-  - name: api-nodejs
-    image: msalejandrojose/docker-api:latest
